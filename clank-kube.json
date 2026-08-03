@@ -1,0 +1,18 @@
+{
+  "extends": ["clank"],
+  "meta": {
+    "name": "clank-kube",
+    "version": "",
+    "description": "clank + read/write access to ~/.kube for kubectl. Opt into this only when cluster access is needed.",
+    "author": "polarsquad"
+  },
+  "filesystem": {
+    "allow": ["~/.kube"],
+    "allow_file": ["~/.kube/config"],
+    "bypass_protection": ["~/.kube", "~/.kube/config"],
+    "suppress_save_prompt": ["~/Library/Preferences/helm/repositories.yaml"]
+  },
+  "workdir": {
+    "access": "readwrite"
+  }
+}

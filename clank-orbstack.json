@@ -1,0 +1,16 @@
+{
+  "extends": ["clank"],
+  "meta": {
+    "name": "clank-orbstack",
+    "version": "",
+    "description": "clank + full OrbStack access for the `orb` and `orbctl` CLIs: read/write to ~/.orbstack (config + daemon sockets in ~/.orbstack/run, incl. docker.sock) and the ~/OrbStack guest-VM mount. This is a superset of clank-docker. WARNING: full OrbStack control is a 1-click jailbreak vector — orb can run arbitrary commands inside Linux machines and mount host paths into them, so opt into this only when the orb/orbctl CLIs are actually needed.",
+    "author": "polarsquad"
+  },
+  "filesystem": {
+    "allow": ["~/.orbstack", "~/OrbStack"],
+    "bypass_protection": ["~/.orbstack", "~/OrbStack"]
+  },
+  "workdir": {
+    "access": "readwrite"
+  }
+}

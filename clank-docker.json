@@ -1,0 +1,17 @@
+{
+  "extends": ["clank"],
+  "meta": {
+    "name": "clank-docker",
+    "version": "",
+    "description": "clank + connect access to the OrbStack Docker socket only (not the whole ~/.orbstack dir). OrbStack is a 1-click jailbreak vector, so opt into this only when the docker CLI is needed.",
+    "author": "polarsquad"
+  },
+  "filesystem": {
+    "allow_file": ["~/.orbstack/run/docker.sock"],
+    "unix_socket": ["~/.orbstack/run/docker.sock"],
+    "bypass_protection": ["~/.orbstack/run/docker.sock"]
+  },
+  "workdir": {
+    "access": "readwrite"
+  }
+}

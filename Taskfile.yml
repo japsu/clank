@@ -1,0 +1,25 @@
+version: "3"
+
+vars:
+  BIN_DIR: '{{.HOME}}/.local/bin'
+  PROFILE_DIR: '{{.HOME}}/.config/nono/profiles'
+
+tasks:
+  install:
+    desc: Install the clank launcher into ~/.local/bin and the nono profiles into ~/.config/nono/profiles
+    cmds:
+      - mkdir -p "{{.BIN_DIR}}" "{{.PROFILE_DIR}}"
+      - install -m 0755 clank.sh "{{.BIN_DIR}}/clank"
+      - install -m 0644 *.json "{{.PROFILE_DIR}}/"
+      - echo "Installed clank -> {{.BIN_DIR}}/clank"
+      - echo "Installed profiles -> {{.PROFILE_DIR}}/"
+
+  uninstall:
+    desc: Remove the installed launcher and profiles
+    cmds:
+      - rm -f "{{.BIN_DIR}}/clank"
+      - for: { var: PROFILES }
+        cmd: rm -f "{{.PROFILE_DIR}}/{{.ITEM}}"
+    vars:
+      PROFILES:
+        sh: ls -1 *.json
