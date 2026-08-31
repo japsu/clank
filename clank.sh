@@ -11,10 +11,15 @@ set -euo pipefail
 CLANK_PROFILE="${CLANK_PROFILE:-clank}"
 CLANK_CMD="${CLANK_CMD:-claude}"
 
-# Ephemeral, throwaway package-manager caches under $TMPDIR, isolated from the
-# real caches so a compromised tool can't poison state our host later trusts
-# and executes from. The profile grants r+w to $TMPDIR/clank-cache ONLY.
-CLANK_CACHE="${TMPDIR:-/tmp}/clank-cache"
+# Ephemeral, throwaway package-manager caches, isolated from the real caches
+# so a compromised tool can't poison state our host later trusts and executes
+# from. Anchored under /tmp/claude-$UID rather than $TMPDIR: that path is
+# already granted read+write by the inherited claude-code-hardened profile,
+# while $TMPDIR is a per-process macOS value (confstr(_CS_DARWIN_USER_TEMP_DIR))
+# that isn't guaranteed to resolve the same way for the profile's own path
+# expansion as it does here, which previously left GOCACHE pointed at a
+# directory the sandbox didn't actually grant access to.
+CLANK_CACHE="/tmp/claude-$(id -u)/clank-cache"
 mkdir -p "$CLANK_CACHE"/{npm,uv,go,go-build,xdg,pre-commit,tfenv,terraform,aws}
 
 export NPM_CONFIG_CACHE="$CLANK_CACHE/npm"

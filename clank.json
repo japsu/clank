@@ -3,11 +3,10 @@
   "meta": {
     "name": "clank",
     "version": "",
-    "description": "Secure base profile for Claude Code: keychain denied, package-manager caches redirected to an ephemeral $TMPDIR location, auth token injected from 1Password. No kube/orbstack access (see clank-kube / clank-docker / clank-orbstack).",
+    "description": "Secure base profile for Claude Code: keychain denied, package-manager caches redirected under /tmp/claude-$UID (already writable via the inherited claude-code-hardened profile), auth token injected from 1Password. No kube/orbstack access (see clank-kube / clank-docker / clank-orbstack).",
     "author": "polarsquad"
   },
   "filesystem": {
-    "allow": ["$TMPDIR/clank-cache"],
     "suppress_save_prompt": [
       "/Users",
       "~/",
